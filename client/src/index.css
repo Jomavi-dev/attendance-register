@@ -1,0 +1,167 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  zoom: 0.9;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-family: Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: 'Fira code' !important;
+}
+
+/* input,
+select,
+textarea {
+  font-size: 0.875rem !important;
+} */
+
+label {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+label span {
+  color: orangered;
+}
+
+main {
+  min-height: 102vh;
+  position: relative;
+}
+
+table tr {
+  white-space: nowrap;
+}
+
+i {
+  font-size: 12px;
+}
+
+.bottom-pagination {
+  position: absolute;
+  bottom: 2.5em;
+  width: 100%;
+  height: 0.7rem;
+}
+
+.cell-stretch {
+  width: 100%;
+}
+
+.light-text th {
+  font-weight: 600;
+}
+
+.container-form {
+  max-width: 31em;
+  margin: auto;
+}
+
+a.outline-none:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .container-form {
+    width: 95%;
+  }
+}
+
+.form-check-label {
+  font-weight: 400;
+}
+
+select:invalid {
+  color: gray;
+  font-weight: 600;
+}
+
+::placeholder {
+  font-weight: 600;
+}
+
+.btn {
+  transition: all 0.1s ease-in;
+}
+
+.del-width {
+  min-width: 1.093rem;
+}
+
+/*  Footer Styles  */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  min-height: 5rem;
+  padding: 2rem;
+  background-color: #eee;
+  font-weight: 400;
+  flex-wrap: nowrap;
+}
+
+@media (min-width: 568px) {
+  footer {
+    padding: 2rem auto;
+  }
+}
+
+.footer p {
+  font-family: Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+  color: #5f5f5f;
+  line-height: 2;
+  justify-self: center;
+  align-self: center;
+}
+
+.footer a {
+  border-bottom: 1px solid #d4d4d4;
+  color: #4b71ca;
+  padding-bottom: 0.1875rem;
+  /*3px*/
+  text-decoration: none;
+}
+
+.footer a:hover,
+.footer a:active {
+  border-bottom-color: #a1a1a1;
+  color: #284487;
+  cursor: pointer;
+}
+
+.fa-heart {
+  color: #e12e2e;
+}
+
+.fa-heart:hover,
+.fa-heart:active {
+  cursor: pointer;
+  color: #5f5f5f;
+}

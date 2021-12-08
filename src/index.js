@@ -1,17 +1,63 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+"use strict";
+const express = require('express')
+const cookieParser = require('cookie-parser')
+require('dotenv').config()
+require('./db/mongoose')
+const models = require('./models')
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const app = express()
+const port = process.env.PORT
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Expose collections to request handlers
+app.use((req, res, next) => {
+  if (!models.Attendance || !models.Member || !models.Service || !models.User) {
+    return next(new Error('No models.'))
+  }
+  req.models = models;
+  return next();
+})
+
+// Express.js configurations
+app.set('x-powered-by', false)
+app.set('json spaces', 2)
+
+// Express.js middleware configuration
+app.use(cookieParser())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+const { attendanceRouter, membersRouter, servicesRouter, usersRouter } = require('./routes')
+
+app.use('/attendance', attendanceRouter)
+app.use('/members', membersRouter)
+app.use('/services', servicesRouter)
+app.use('/users', usersRouter)
+
+// Error handlers
+// Development error handler: Will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function (err, req, res, next) {
+    res
+      .status(err.status || 500)
+      .json({ message: { msgBody: 'Error occured:' + err, msgError: true } })
+  })
+}
+
+// Production error handler: No stacktraces leaked to user
+app.use(function (err, req, res, next) {
+  res
+    .status(err.status || 500)
+    .json({ message: { msgBody: 'Error occured:' + err.message, msgError: true } })
+})
+
+if (app.get('env') === 'production') {
+  app.use(express.static('client/build'))
+
+  const path = require('path')
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
+
+
+app.listen(port, () => console.log(`Server is runnning on http://localhost:${port}`))
